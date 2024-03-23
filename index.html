@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--Nesta observação vocês devem colocar os nomes dos alunos que ajudaram na atividade.
+Um aluno por linha e coloque o nome completo, o respectiv número e a turma.
+Nome: Douglas Cauan                         nº:06       Turma:3B            
+Nome: Leonardo de Melo Ferreira             nº: 19     Turma:3B           
+Nome: Luan Calvi                            nº: 20    Turma: 3B                  -->
+<html lang="pt-BR">
+    <head>
+        <title>Primos V1 while</title>        
+        <meta charset="UTF-8">          
+        <script>
+            function recebeNumero(){
+                var canvas = document.getElementById('meuCanvas');
+                if (canvas.getContext){
+                    var cntxt = canvas.getContext('2d');
+                    var maxWidth = 300;
+                    var lineHeight = 35;
+                    var x = (canvas.width - maxWidth) / 2;
+                    var y = 60;
+                    var grad = cntxt.createLinearGradient(0, 0, canvas.width, 0);
+                    grad.addColorStop(0,"rgb(255, 0, 0)");
+                    grad.addColorStop(0.5, "rgb(255, 255, 255)");
+                    grad.addColorStop(1,"rgb(0, 0, 0)");
+                   
+                    var N1 = parseInt(document.getElementById("Numero1").value, 10);
+                    cntxt.fillStyle = "rgb(255, 255, 255)";
+                    cntxt.fillRect (0, 0, canvas.width, canvas.height);                    
+                    cntxt.font="30px Comic Sans MS";
+                    cntxt.fillStyle = grad;
+                    primos(cntxt, N1, x, y);
+                }
+            }
+
+            function primo(num) {
+                if (num < 2) return false;
+                for (let i = 2; i <= Math.sqrt(num); i++) {
+                    if (num % i === 0) return false;
+                }
+                return true;
+            }
+
+            function primos(cntxt, N, x, y) {
+                let num = 2;
+                let primeNumbers = [];
+                while (primeNumbers.length < N) {
+                    if (primo(num)) {
+                        primeNumbers.push(num);
+                    }
+                    num++;
+                }
+
+                let line = primeNumbers.join(', ');
+                cntxt.fillText(line, x, y);
+                cntxt.strokeText(line, x, y);
+            }
+        </script>
+    </head>
+    <body>
+        <div>
+            <h1>Primos</h1>
+            <label style="font-size: 20px;">Digite a quantidade de números primos desejada:</label>
+            <input type="text" id="Numero1" autofocus><br>
+            <button onclick="recebeNumero()">Mostrar Números Primos</button><br><br>
+            <canvas id="meuCanvas" width="400" height="400" style="border:1px solid #000000; background-color: white;"></canvas>
+        </div>
+    </body>
+</html>
